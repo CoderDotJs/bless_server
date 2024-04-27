@@ -12,9 +12,8 @@ const upload = multer({ storage: storage });
 
 router.post(
   '/product',
-  auth('admin', 'user'),
+  auth('admin'),
   validateRequest(productValidation.createProductValidation),
-  express.json({}),
   upload.single('img'),
   ProductControllers.createProduct
 );

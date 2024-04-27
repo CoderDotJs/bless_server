@@ -10,10 +10,6 @@ import { v2 as cloudinaryV2 } from 'cloudinary';
 import configs from './app/configs/configs.js';
 import { ProductRouter } from './app/Modules/Product/product.routes.js';
 import bodyParser from 'body-parser'; // Configure multer storage
-import multer from 'multer';
-
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
 
 export const cloudinary = cloudinaryV2.config({
   cloud_name: configs.cloudinary_name,
@@ -21,7 +17,6 @@ export const cloudinary = cloudinaryV2.config({
   api_secret: configs.cloudinary_secret_key,
 });
 
-app.use(upload.none());
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));

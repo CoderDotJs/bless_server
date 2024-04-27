@@ -6,8 +6,7 @@ import App from '../../../app.js';
 
 const createProduct = catchAsync(async (req, res) => {
   let cloudinaryUpload = null;
-  console.log(req.body, req.files);
-  if (req?.files?.imgg) {
+  if (req?.files?.img) {
     cloudinaryUpload = await App.cloudinary.uploader.upload(
       req.files.img.buffer.toString('base64')
     );

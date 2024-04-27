@@ -1,7 +1,6 @@
 import { z } from 'zod';
-import { zfd } from 'zod-form-data';
 
-const createProductValidation = zfd.formData({
+const createProductValidation = z.object({
   name: z.string({ required_error: 'Name is required' }),
   desc: z.string({ required_error: 'Description is required' }),
   price: z.number({ required_error: 'Price is required' }),
