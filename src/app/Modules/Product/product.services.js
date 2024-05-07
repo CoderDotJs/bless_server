@@ -43,8 +43,8 @@ const getProductsFromDB = async (filters) => {
 
   // Add pagination
   const skip = (page - 1) * limit;
-  aggregatePipeline.push({ $skip: skip });
-  aggregatePipeline.push({ $limit: limit });
+  aggregatePipeline.push({ $skip: parseInt(skip) });
+  aggregatePipeline.push({ $limit: parseInt(limit) });
 
   const products = await Product.aggregate(aggregatePipeline);
   return {
@@ -52,6 +52,12 @@ const getProductsFromDB = async (filters) => {
       page,
       limit,
       total: totalCount.length > 0 ? totalCount[0].count : 0,
+      hasMore:
+        totalCount.length > 0
+          ? totalCount[0].count > page * limit
+            ? true
+            : false
+          : false,
     },
     data: products,
   };
