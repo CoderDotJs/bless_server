@@ -1,9 +1,9 @@
-const httpStatus = require('http-status');
-const { default: AppError } = require('../../errors/AppError');
-const { Order } = require('./order.model');
-const { Product } = require('../Product/product.model');
-
-const stripe = require('stripe')(
+import httpStatus from 'http-status';
+import AppError from '../../errors/AppError.js';
+import { Order } from './order.model.js';
+import { Product } from '../Product/product.model.js';
+import Stripe from 'stripe';
+const stripe = Stripe(
   'sk_test_51JwjCnF8dfRkp5sRpRrS6KjcqhpsJieqj0CzbmuaUZD4fDUdLIKslaGFg8gEQr7v7qrrBTXhyDuOMFGXrNiNPKCw00jR8mpv4q'
 );
 
@@ -67,4 +67,18 @@ const cancelOrder = async (orderId) => {
   }
 };
 
-export const OrderServices = { createOrder, cancelOrder, completeOrder };
+const getOrders = async (userId) => {
+  try {
+    const products = await Order.find({ user: userId }).populate('product');
+    return products;
+  } catch (err) {
+    throw AppError(httpStatus[500], err.message);
+  }
+};
+
+export const OrderServices = {
+  createOrder,
+  cancelOrder,
+  completeOrder,
+  getOrders,
+};

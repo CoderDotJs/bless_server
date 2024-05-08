@@ -11,6 +11,7 @@ import configs from './app/configs/configs.js';
 import { ProductRouter } from './app/Modules/Product/product.routes.js';
 import bodyParser from 'body-parser'; // Configure multer storage
 import { ListingRouter } from './app/Modules/Listing/listing.routes.js';
+import { OrderRouter } from './app/Modules/Order/order.routes.js';
 
 export const cloudinary = cloudinaryV2.config({
   cloud_name: configs.cloudinary_name,
@@ -25,6 +26,7 @@ app.use('/api', AuthRouts);
 app.use('/api', UserRouter);
 app.use('/api', ProductRouter);
 app.use('/api', ListingRouter);
+app.use('/api', OrderRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
